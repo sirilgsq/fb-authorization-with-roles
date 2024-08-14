@@ -8,6 +8,7 @@ const {
 } = require("./constants");
 const verifyAndGetUserInfo = require("./utils/verify-and-get-user-info");
 const generateAccessToken = require("./utils/generate-access-token");
+require("dotenv").config();
 
 /**
  * Middleware to authenticate users based on their roles.
@@ -18,13 +19,16 @@ const generateAccessToken = require("./utils/generate-access-token");
  * @returns {Function} - Middleware function that authenticates the user.
  */
 const fbAuthorizationWithRoles =
-  (allowedRoles = [], accessTokenKey, refreshTokenKey) =>
+  (allowedRoles = []) =>
   async (req, res, next) => {
+    const accessTokenKey = process.env.ACCESS_TOKEN_KEY,
+      refreshTokenKey = process.env.REFRESH_TOKEN_KEY;
     // Validate token keys
     if (!accessTokenKey || !refreshTokenKey) {
-      return res
-        .status(BAD_REQUEST)
-        .json({ error: "accessTokenKey and refreshTokenKey are required" });
+      return res.status(BAD_REQUEST).json({
+        error:
+          "process.env.ACCESS_TOKEN_KEY and process.env.REFRESH_TOKEN_KEY are required. Update your .env",
+      });
     }
 
     const token = req.cookies[accessTokenKey] || null;
