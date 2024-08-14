@@ -1,0 +1,9 @@
+{
+  "name": "@gsq/fb-authorization-with-roles",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/sirilgsq/fb-authorization-with-roles",
+  "author": "sirilgsq",
+  "license": "MIT",
+  "private": true
+}
