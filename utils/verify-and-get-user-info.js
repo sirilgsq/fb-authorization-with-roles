@@ -1,4 +1,4 @@
-const { admin } = require("../config/firebase-admin");
+const { admin } = require(process.env.FB_ADMIN_SDK_JSON_PATH);
 
 /**
  * Verifies the provided Firebase ID token and retrieves user information.
