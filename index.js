@@ -6,7 +6,7 @@ const {
   _UNAUTHORIZED_ERROR_MESSAGE,
   _ACCESS_DENIED_ERROR_MESSAGE,
 } = require("./constants");
-// const verifyAndGetUserInfo = require("./utils/verify-and-get-user-info");
+const verifyAndGetUserInfo = require("./utils/verify-and-get-user-info");
 const generateAccessToken = require("./utils/generate-access-token");
 require("dotenv").config();
 
@@ -43,7 +43,7 @@ const fbAuthorizationWithRoles =
 
     try {
       // Verify and get user information from the token
-      //   const { disabled, customClaims } = await verifyAndGetUserInfo(token);
+      const { disabled, customClaims } = await verifyAndGetUserInfo(token);
 
       // Check if the user account is disabled
       if (disabled) {
@@ -70,9 +70,9 @@ const fbAuthorizationWithRoles =
           );
 
           if (status === OK) {
-            // const { disabled, customClaims } = await verifyAndGetUserInfo(
-            //   newToken
-            // );
+            const { disabled, customClaims } = await verifyAndGetUserInfo(
+              newToken
+            );
 
             if (disabled) {
               return respondWithUnauthorized(
@@ -144,4 +144,4 @@ const verifyRoles = (allowedRoles, userRoles) => {
   return userRoles.some((role) => allowedRoles.includes(role));
 };
 
-module.exports = { fbAuthorizationWithRoles };
+module.exports = { fbAuthorizationWithRoles, verifyAndGetUserInfo };
