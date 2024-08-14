@@ -1,19 +1,6 @@
 const admin = require("firebase-admin");
 const fs = require("fs");
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccountJson()),
-  databaseURL: "https://decotherapynode-default-rtdb.firebaseio.com/",
-});
-const fdb = admin.firestore();
-const rdb = admin.database();
-
-module.exports = {
-  admin,
-  fdb,
-  rdb,
-};
-
 const serviceAccountJson = () => {
   const serviceAccountPath = process.env.FB_ADMIN_SDK_JSON_PATH;
   if (!serviceAccountPath) {
@@ -30,4 +17,19 @@ const serviceAccountJson = () => {
       throw new Error(`Error parsing the JSON file: ${parseError}`);
     }
   });
+};
+
+const serviceAccount = serviceAccountJson();
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://decotherapynode-default-rtdb.firebaseio.com/",
+});
+const fdb = admin.firestore();
+const rdb = admin.database();
+
+module.exports = {
+  admin,
+  fdb,
+  rdb,
 };
