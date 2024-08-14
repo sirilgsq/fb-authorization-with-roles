@@ -1,4 +1,3 @@
-const verifyAndGetUserInfo = require("../utils/verify-and-get-user-info");
 const {
   OK,
   BAD_REQUEST,
@@ -7,6 +6,7 @@ const {
   _UNAUTHORIZED_ERROR_MESSAGE,
   _ACCESS_DENIED_ERROR_MESSAGE,
 } = require("./constants");
+const verifyAndGetUserInfo = require("./utils/verify-and-get-user-info");
 const generateAccessToken = require("./utils/generate-access-token");
 
 /**
@@ -138,4 +138,4 @@ const verifyRoles = (allowedRoles, userRoles) => {
   return userRoles.some((role) => allowedRoles.includes(role));
 };
 
-module.exports = fbAuthorizationWithRoles;
+module.exports = { fbAuthorizationWithRoles, verifyAndGetUserInfo };
